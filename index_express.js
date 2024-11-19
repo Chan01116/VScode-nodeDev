@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended:false}));  //글씨가 깨지지 않도�
 
 
 
-app.use("/main",express.static(__dirname+"/public")); //메인에 행당하는 경로 (디렉토리네임)     가상경로와 폴더매칭  스프링에서 리소시스를 사용했을때 처럼
+app.use("/style",express.static(__dirname+"/style")); //메인에 행당하는 경로 (디렉토리네임)     가상경로와 폴더매칭  스프링에서 리소시스를 사용했을때 처럼
 
 
 
@@ -22,13 +22,20 @@ app.get("/",
     }
 );
 
+app.get("/boardWrite",   
+    (req,res)=>{   // 겟방식으로 가상경로띄우기
+        res.sendFile(__dirname+"/boardWrite.html");
+    }
+);
+
 app.post("/boardWriteAction",function(req,res){
 
     var body = req.body;
     console .log(body);
-}){
+});
 
-}
+
+
 
 
 // app.get("/",(req.res)=>){res.sendFile(__dirname+"/index.html");
