@@ -31,7 +31,33 @@ app.get("/boardWrite",
 app.post("/boardWriteAction",function(req,res){
 
     var body = req.body;
+    console .log("body 객체값은?");
     console .log(body);
+
+    var sql = "INSERT INTO board(originbidx,depth,level_,SUBJECT,contents,writer,password,midx) value(null,0,0,?,?,?,?,1001)";
+
+    var sql2 = "update board set originbidx = (SELECT A.maxbidx from (select max(bidx) as maxbidx from board)A)where bidx= (SELECT A.maxbidx from (select max(bidx) as maxbidx from board)A)";
+    
+    var params = [body.subject,body.writer,body.contents,body.password]
+    console.log(sql);
+
+    
+    conn.query(sql,params,function(err,results,fields){
+        if(err){
+            console.log(err);
+        }
+        console.log(results);
+    });
+    
+    conn.query(sql2,params,function(err,results,fields){
+        if(err){
+            console.log(err);
+        }
+        console.log(results);
+    });
+    res.redirect("/");
+
+
 });
 
 
